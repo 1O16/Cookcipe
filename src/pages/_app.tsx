@@ -1,10 +1,16 @@
 import { AppProps } from "next/app";
 import { Global } from "@emotion/react";
-import { globalStyles } from "../styles/global";
+import Header from "../components/Header";
+import { global } from "../styles/global";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  <Global styles={globalStyles} />;
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Header />
+      <Global styles={global} />
+      <Component {...pageProps} />
+    </>
+  );
 };
 
 export default MyApp;
