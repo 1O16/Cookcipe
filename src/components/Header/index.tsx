@@ -13,8 +13,15 @@ const Header = () => {
         <S.SearchContainer>
           <S.SearchInput type="text" />
           <S.SearchButton type="submit">검색</S.SearchButton>
+          <Link href="/auth/login">
+            <S.WriteRecipeButton style={{ marginLeft: "6rem", backgroundColor: "#F8AA45" }}>
+              <S.RecipeTooltip>
+                <S.TooltipText>계정</S.TooltipText>A
+              </S.RecipeTooltip>
+            </S.WriteRecipeButton>
+          </Link>
           <Link href="/recipe/write">
-            <S.WriteRecipeButton>
+            <S.WriteRecipeButton style={{ backgroundColor: "#ACC7B4" }}>
               <S.RecipeTooltip>
                 <S.TooltipText>글 작성</S.TooltipText>R
               </S.RecipeTooltip>

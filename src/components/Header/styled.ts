@@ -60,7 +60,7 @@ export const RecipeTooltip = styled.span`
 `;
 
 export const WriteRecipeButton = styled.button`
-  margin-left: 4.5rem;
+  margin-left: 3rem;
   margin-top: 0.3rem;
   width: 2rem;
   height: 2rem;
