@@ -1,9 +1,12 @@
 import React from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import * as S from "./styled";
 
 const Header = () => {
+  const router = useRouter();
+  if (router.pathname === "/auth/login" || router.pathname === "/auth/register") return null;
   return (
     <>
       <S.HeaderContainer>
@@ -21,7 +24,7 @@ const Header = () => {
             </S.WriteRecipeButton>
           </Link>
           <Link href="/recipe/write">
-            <S.WriteRecipeButton style={{ backgroundColor: "#ACC7B4" }}>
+            <S.WriteRecipeButton style={{ backgroundColor: "#161B21", color: "white" }}>
               <S.RecipeTooltip>
                 <S.TooltipText>글 작성</S.TooltipText>R
               </S.RecipeTooltip>
