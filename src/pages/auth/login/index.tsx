@@ -37,9 +37,15 @@ const Login = () => {
             Google 로그인
           </S.GoogleLoginButton>
           <S.InputContainer>
-            <Input placeholder="아이디" />
+            <Input placeholder="아이디" style={{ marginRight: "10px" }} />
             <Input placeholder="비밀번호" />
           </S.InputContainer>
+          <Link href="/auth/register">
+            <S.LinkRegister>회원가입하러가기</S.LinkRegister>
+          </Link>
+          <Link href="/">
+            <S.LoginButton>로그인</S.LoginButton>
+          </Link>
         </S.AuthContainer>
       </S.AuthLayout>
     </>
