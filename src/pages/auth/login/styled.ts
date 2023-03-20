@@ -45,10 +45,10 @@ export const InputContainer = styled.div`
   padding-bottom: 0.4rem;
 `;
 
-export const LinkRegister = styled.span`
+export const ToggleSign = styled.span`
   color: #a4a4a4;
   text-decoration: underline;
-  margin-left: 27.3rem;
+  align-self: flex-end;
 
   cursor: pointer;
 
@@ -58,7 +58,7 @@ export const LinkRegister = styled.span`
   }
 `;
 
-export const LoginButton = styled.button`
+export const LoginButton = styled.input`
   width: 12rem;
   height: 3.5rem;
   border-radius: 28px;
@@ -73,4 +73,14 @@ export const LoginButton = styled.button`
     background-color: #fe9a2e;
     transition: all 0.3s ease-in-out;
   }
+`;
+
+export const AuthForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ErrorMessage = styled.span`
+  color: red;
 `;

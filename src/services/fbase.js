@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBBAoO6tHe1V-qTUDdAQ9ZAE_XwyAZHV_g",
-  authDomain: "cookcipe.firebaseapp.com",
-  projectId: "cookcipe",
-  storageBucket: "cookcipe.appspot.com",
-  messagingSenderId: "11547279507",
-  appId: "1:11547279507:web:329a1d3f2c27fc91abcd66",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);

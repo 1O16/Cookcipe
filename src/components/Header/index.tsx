@@ -1,12 +1,32 @@
 import React from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { authService } from "../../services/fbase";
 
 import * as S from "./styled";
 
 const Header = () => {
+  useEffect(() => {
+    authService.onAuthStateChanged((user) => {
+      console.log(user);
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+  }, []);
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
   const router = useRouter();
   if (router.pathname === "/auth/login" || router.pathname === "/auth/register") return null;
+
+  const onLogoutClick = () => {
+    authService.signOut();
+  };
+
   return (
     <>
       <S.HeaderContainer>
@@ -16,13 +36,24 @@ const Header = () => {
         <S.SearchContainer>
           <S.SearchInput type="text" />
           <S.SearchButton type="submit">검색</S.SearchButton>
-          <Link href="/auth/login">
-            <S.WriteRecipeButton style={{ marginLeft: "6rem", backgroundColor: "#F8AA45" }}>
+          {isLoggedIn ? (
+            <S.WriteRecipeButton
+              onClick={onLogoutClick}
+              style={{ marginLeft: "6rem", backgroundColor: "#F8AA45" }}
+            >
               <S.RecipeTooltip>
-                <S.TooltipText>계정</S.TooltipText>A
+                <S.TooltipText>로그아웃</S.TooltipText>L
               </S.RecipeTooltip>
             </S.WriteRecipeButton>
-          </Link>
+          ) : (
+            <Link href="/auth/login">
+              <S.WriteRecipeButton style={{ marginLeft: "6rem", backgroundColor: "#F8AA45" }}>
+                <S.RecipeTooltip>
+                  <S.TooltipText>계정</S.TooltipText>A
+                </S.RecipeTooltip>
+              </S.WriteRecipeButton>
+            </Link>
+          )}
           <Link href="/recipe/write">
             <S.WriteRecipeButton style={{ backgroundColor: "#161B21", color: "white" }}>
               <S.RecipeTooltip>

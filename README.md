@@ -7,3 +7,5 @@
 - Prettier
 - eslint
 - husky
+- React-Slick
+- Firebase
