@@ -27,6 +27,15 @@ const Header = () => {
     authService.signOut();
   };
 
+  const onWriteClick = () => {
+    if (isLoggedIn === false) {
+      alert("로그인이 필요한 컨텐츠입니다");
+      router.push("/auth/login");
+    } else {
+      router.push("/recipe/write");
+    }
+  };
+
   return (
     <>
       <S.HeaderContainer>
@@ -54,13 +63,14 @@ const Header = () => {
               </S.WriteRecipeButton>
             </Link>
           )}
-          <Link href="/recipe/write">
-            <S.WriteRecipeButton style={{ backgroundColor: "#161B21", color: "white" }}>
-              <S.RecipeTooltip>
-                <S.TooltipText>글 작성</S.TooltipText>R
-              </S.RecipeTooltip>
-            </S.WriteRecipeButton>
-          </Link>
+          <S.WriteRecipeButton
+            onClick={onWriteClick}
+            style={{ backgroundColor: "#161B21", color: "white" }}
+          >
+            <S.RecipeTooltip>
+              <S.TooltipText>글 작성</S.TooltipText>R
+            </S.RecipeTooltip>
+          </S.WriteRecipeButton>
         </S.SearchContainer>
       </S.HeaderContainer>
       <S.CategoryContainer>
