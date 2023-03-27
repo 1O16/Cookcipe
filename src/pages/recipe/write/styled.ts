@@ -10,3 +10,7 @@ export const WriteHeader = styled.div`
   padding: 0 20px;
   border-bottom: 1px solid #848484;
 `;
+
+export const WriteBody = styled.div`
+  background-color: orange;
+`;

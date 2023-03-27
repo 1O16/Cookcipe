@@ -25,6 +25,9 @@ const Header = () => {
 
   const onLogoutClick = () => {
     authService.signOut();
+    !isLoggedIn;
+
+    router.push("/");
   };
 
   const onWriteClick = () => {
