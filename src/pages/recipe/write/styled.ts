@@ -23,7 +23,6 @@ export const ForImageContainer = styled.div`
   width: 80%;
   display: flex;
   justify-content: space-between;
-  background-color: gray;
 `;
 
 export const RecipeFormContainer = styled.div`
@@ -34,7 +33,6 @@ export const PropsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: #f5f5f5;
   padding: 5px 0;
 `;
 
@@ -47,13 +45,26 @@ export const WriteRecipeTitle = styled.input`
   width: 450px;
   height: 40px;
   padding: 6px 10px 6px 15px;
-  font-size: 20px;
-  background-color: #e2e2e2;
+  font-size: 16px;
+  background-color: #f2f2f2;
   border: 1px solid #848484;
   border-radius: 5px;
 
   &::placeholder {
-    font-size: 16px;
+    vertical-align: middle;
+  }
+`;
+
+export const WriteRecipeDesc = styled.textarea`
+  width: 450px;
+  height: 80px;
+  padding: 10px 10px 6px 15px;
+  font-size: 16px;
+  background-color: #f2f2f2;
+  border: 1px solid #848484;
+  border-radius: 5px;
+
+  &::placeholder {
     vertical-align: middle;
   }
 `;

@@ -38,15 +38,21 @@ const Write = () => {
               </S.PropsContainer>
               <S.PropsContainer>
                 <S.PropsTitle>레시피 소개</S.PropsTitle>
-                <textarea
-                  style={{ height: "80px", resize: "none" }}
+                <S.WriteRecipeDesc
+                  style={{ resize: "none" }}
                   placeholder="레시피 소개를 입력해주세요"
-                ></textarea>
+                ></S.WriteRecipeDesc>
               </S.PropsContainer>
               <S.PropsContainer>
                 <S.PropsTitle>카테고리</S.PropsTitle>
                 <S.CategorySelector>
                   <option value="KoreanFood">한식</option>
+                  <option value="JapaneseFood">일식</option>
+                  <option value="ChineseFood">중식</option>
+                  <option value="WesternFood">양식</option>
+                  <option value="Simple">간단 자취음식</option>
+                  <option value="Desert">디저트</option>
+                  <option value="Salad">샐러드</option>
                 </S.CategorySelector>
                 <S.PropsTitle style={{ marginLeft: "35px" }}>난이도</S.PropsTitle>
                 <S.CategorySelector>
@@ -65,7 +71,6 @@ const Write = () => {
               ) : (
                 <></>
               )}
-
               <S.RecipeImage
                 type="file"
                 accept=".png, .jpg, .jpeg"
@@ -74,6 +79,14 @@ const Write = () => {
               />
             </div>
           </S.ForImageContainer>
+          <S.RecipeFormContainer
+            style={{ borderTop: "1px solid #848484", marginTop: "40px", paddingTop: "30px" }}
+          >
+            <S.PropsContainer>
+              <S.PropsTitle>재료</S.PropsTitle>
+              <S.WriteRecipeTitle></S.WriteRecipeTitle>
+            </S.PropsContainer>
+          </S.RecipeFormContainer>
         </S.WriteBody>
       </Layout>
     </>
