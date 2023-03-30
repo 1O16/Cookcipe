@@ -1,10 +1,30 @@
 import react from "next";
+import { useRef, useState } from "react";
 import { Layout } from "../../../components";
 import { db } from "../../../services/fbase";
 
 import * as S from "./styled";
 
 const Write = () => {
+  const [imgFile, setImgFile] = useState("");
+  const imgRef = useRef<HTMLInputElement>();
+
+  const handlePreviewImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file: any = e.target.files;
+    if (file.length === 0) {
+      return;
+    } else {
+      const reader = new FileReader();
+      reader.readAsDataURL(file[0]);
+      reader.onload = function (e: any) {
+        setImgFile(e.target.result);
+      };
+    }
+  };
+
+  const onClickImgDel = () => {
+    setImgFile("");
+  };
   return (
     <>
       <Layout>
@@ -18,7 +38,10 @@ const Write = () => {
               </S.PropsContainer>
               <S.PropsContainer>
                 <S.PropsTitle>레시피 소개</S.PropsTitle>
-                <S.WriteRecipeTitle placeholder="레시피 소개를 입력해주세요" />
+                <textarea
+                  style={{ height: "80px", resize: "none" }}
+                  placeholder="레시피 소개를 입력해주세요"
+                ></textarea>
               </S.PropsContainer>
               <S.PropsContainer>
                 <S.PropsTitle>카테고리</S.PropsTitle>
@@ -33,7 +56,23 @@ const Write = () => {
                 </S.CategorySelector>
               </S.PropsContainer>
             </S.RecipeFormContainer>
-            <S.RecipeImage type="file" />
+            <div>
+              {imgFile ? (
+                <>
+                  <S.PreviewImage src={imgFile} />
+                  <S.ImageDeleteBtn onClick={onClickImgDel}>X</S.ImageDeleteBtn>
+                </>
+              ) : (
+                <></>
+              )}
+
+              <S.RecipeImage
+                type="file"
+                accept=".png, .jpg, .jpeg"
+                onChange={handlePreviewImg}
+                ref={imgRef}
+              />
+            </div>
           </S.ForImageContainer>
         </S.WriteBody>
       </Layout>

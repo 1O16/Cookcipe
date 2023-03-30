@@ -58,18 +58,53 @@ export const WriteRecipeTitle = styled.input`
   }
 `;
 
-export const RecipeImage = styled.input`
-  width: 200px;
-  height: 200px;
-  background-color: #f2f2f2;
-  border: 1px solid #e6e6e6;
-  border-radius: 5px;
-`;
-
 export const CategorySelector = styled.select`
   width: 120px;
   height: 40px;
   border-radius: 5px;
   font-size: 16px;
   text-align: center;
+`;
+
+export const RecipeImage = styled.input`
+  width: 200px;
+  height: 195px;
+  background-color: #f2f2f2;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &::file-selector-button {
+    display: none;
+  }
+  &:hover {
+    opacity: 85%;
+  }
+`;
+
+export const PreviewImage = styled.img`
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+`;
+
+export const ImageDeleteBtn = styled.button`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  opacity: 65%;
+  cursor: pointer;
+  z-index: 1;
+
+  &:hover {
+    opacity: 100%;
+  }
 `;
