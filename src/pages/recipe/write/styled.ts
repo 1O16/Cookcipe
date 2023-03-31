@@ -119,3 +119,8 @@ export const ImageDeleteBtn = styled.button`
     opacity: 100%;
   }
 `;
+
+export const MaterialAddButton = styled.button`
+  width: 70px;
+  height: 40px;
+`;

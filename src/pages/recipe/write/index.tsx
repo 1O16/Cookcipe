@@ -84,7 +84,7 @@ const Write = () => {
           >
             <S.PropsContainer>
               <S.PropsTitle>재료</S.PropsTitle>
-              <S.WriteRecipeTitle></S.WriteRecipeTitle>
+              <S.WriteRecipeTitle placeholder="예) 돼지고기 500g / 소금 3큰술" />
             </S.PropsContainer>
           </S.RecipeFormContainer>
         </S.WriteBody>
