@@ -6,6 +6,7 @@ import { db } from "../../../services/fbase";
 import * as S from "./styled";
 
 const Write = () => {
+  const [material, setMaterial] = useState<string[]>([]);
   const [imgFile, setImgFile] = useState("");
   const imgRef = useRef<HTMLInputElement>();
 
@@ -50,7 +51,7 @@ const Write = () => {
                   <option value="JapaneseFood">일식</option>
                   <option value="ChineseFood">중식</option>
                   <option value="WesternFood">양식</option>
-                  <option value="Simple">간단 자취음식</option>
+                  <option value="Simple">자취음식</option>
                   <option value="Desert">디저트</option>
                   <option value="Salad">샐러드</option>
                 </S.CategorySelector>
@@ -83,8 +84,18 @@ const Write = () => {
             style={{ borderTop: "1px solid #848484", marginTop: "40px", paddingTop: "30px" }}
           >
             <S.PropsContainer>
-              <S.PropsTitle>재료</S.PropsTitle>
-              <S.WriteRecipeTitle placeholder="예) 돼지고기 500g / 소금 3큰술" />
+              <S.MaterialTemplate>
+                <S.PropsTitle>재료</S.PropsTitle>
+                <S.WriteRecipeTitle
+                  placeholder="예) 돼지고기 500g / 소금 3큰술"
+                  style={{ borderRadius: "5px 0 0 5px" }}
+                />
+                <S.MaterialAddButton>추가</S.MaterialAddButton>
+                <S.MaterialList>
+                  <S.MaterialItem />
+                </S.MaterialList>
+                <S.MaterialEdit />
+              </S.MaterialTemplate>
             </S.PropsContainer>
           </S.RecipeFormContainer>
         </S.WriteBody>

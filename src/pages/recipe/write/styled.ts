@@ -14,8 +14,7 @@ export const WriteBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: orange;
-  padding: 20px 0;
+  padding: 25px 0;
   width: 100%;
 `;
 
@@ -33,7 +32,7 @@ export const PropsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  padding: 5px 0;
+  padding: 10px 0;
 `;
 
 export const PropsTitle = styled.p`
@@ -80,7 +79,7 @@ export const CategorySelector = styled.select`
 export const RecipeImage = styled.input`
   width: 200px;
   height: 195px;
-  background-color: #f2f2f2;
+  background-color: #e6e6e6;
   border: 1px solid #e6e6e6;
   border-radius: 5px;
   cursor: pointer;
@@ -89,7 +88,7 @@ export const RecipeImage = styled.input`
     display: none;
   }
   &:hover {
-    opacity: 85%;
+    opacity: 50%;
   }
 `;
 
@@ -120,7 +119,27 @@ export const ImageDeleteBtn = styled.button`
   }
 `;
 
+export const MaterialTemplate = styled.div``;
+
 export const MaterialAddButton = styled.button`
   width: 70px;
-  height: 40px;
+  height: 53px;
+  background-color: #f8aa45;
+  border-radius: 0 5px 5px 0;
+  border: 1px solid #848484;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #fac37c;
+  }
 `;
+
+export const MaterialList = styled.ul``;
+
+export const MaterialItem = styled.li``;
+
+export const MaterialEdit = styled.div``;
