@@ -8,23 +8,15 @@ import { db } from "../../../services/fbase";
 
 import * as S from "./styled";
 
+interface MaterialProps {
+  id: number;
+  text: string;
+}
+
 const Write = () => {
-  const [materials, setMaterials] = useState([
-    {
-      id: 1,
-      text: "밥먹기",
-    },
-    {
-      id: 2,
-      text: "잠자기",
-    },
-    {
-      id: 3,
-      text: "고기 먹기",
-    },
-  ]);
-  const [editToggle, setEditToggle] = useState(false);
+  const [materials, setMaterials] = useState<MaterialProps[]>([]);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
+  const [editToggle, setEditToggle] = useState(false);
   const [imgFile, setImgFile] = useState("");
 
   const nextId = useRef(4);
@@ -48,6 +40,24 @@ const Write = () => {
     },
     [materials]
   );
+
+  const onEditToggle = () => {
+    if (selectedMaterial) {
+      setSelectedMaterial(null);
+    }
+    setEditToggle((prev) => !prev);
+  };
+
+  const onChangeSelectedMaterial = (material: any) => {
+    setSelectedMaterial(material);
+  };
+
+  const onUpdateMaterial = (id: number, text: string) => {
+    onEditToggle();
+    setMaterials(
+      materials.map((material) => (material.id === id ? { ...material, text } : material))
+    );
+  };
 
   const handlePreviewImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: any = e.target.files;
@@ -126,9 +136,18 @@ const Write = () => {
               <S.MaterialTemplate>
                 <S.PropsTitle>재료</S.PropsTitle>
                 <MaterialInput onWriteMaterial={onWriteMaterial} />
-                <S.MaterialAddButton>추가</S.MaterialAddButton>
-                <MaterialList materials={materials} onRemoveMaterial={onRemoveMaterial} />
-                {editToggle && <MaterialEdit />}
+                <MaterialList
+                  materials={materials}
+                  onEditToggle={onEditToggle}
+                  onRemoveMaterial={onRemoveMaterial}
+                  onChangeSelectedMaterial={onChangeSelectedMaterial}
+                />
+                {editToggle && (
+                  <MaterialEdit
+                    selectedMaterial={selectedMaterial}
+                    onUpdateMaterial={onUpdateMaterial}
+                  />
+                )}
               </S.MaterialTemplate>
             </S.PropsContainer>
           </S.RecipeFormContainer>

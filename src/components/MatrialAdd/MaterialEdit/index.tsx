@@ -1,24 +1,34 @@
 import react from "next";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import * as S from "./styled";
 
 interface MaterialEditProps {
-  materials?: any;
+  selectedMaterial?: any;
+  onUpdateMaterial: (id: number, text: string) => void;
 }
 
-const MaterialEdit = ({ materials, ...props }: MaterialEditProps) => {
+const MaterialEdit = ({ selectedMaterial, onUpdateMaterial }: MaterialEditProps) => {
   const [value, setValue] = useState("");
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
+
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
+      onUpdateMaterial(selectedMaterial.id, value);
       setValue("");
       e.preventDefault();
     },
-    [value]
+    [onUpdateMaterial, value]
   );
+
+  useEffect(() => {
+    if (selectedMaterial) {
+      setValue(selectedMaterial.text);
+    }
+  }, [selectedMaterial]);
   return (
     <S.MaterialEdit>
       <S.MaterialEditForm onSubmit={onSubmit}>
@@ -28,7 +38,7 @@ const MaterialEdit = ({ materials, ...props }: MaterialEditProps) => {
           onChange={onChange}
           placeholder="재료를 입력해주세요. 예) 돼지고기 500g / 소금 3큰술"
         />
-        <S.MaterialEditButton>수정</S.MaterialEditButton>
+        <S.MaterialEditButton type="submit">수정</S.MaterialEditButton>
       </S.MaterialEditForm>
     </S.MaterialEdit>
   );
