@@ -1,14 +1,53 @@
 import react from "next";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Layout } from "../../../components";
+import MaterialEdit from "../../../components/MatrialAdd/MaterialEdit";
+import MaterialInput from "../../../components/MatrialAdd/MaterialInput";
+import MaterialList from "../../../components/MatrialAdd/MaterialList";
 import { db } from "../../../services/fbase";
 
 import * as S from "./styled";
 
 const Write = () => {
-  const [material, setMaterial] = useState<string[]>([]);
+  const [materials, setMaterials] = useState([
+    {
+      id: 1,
+      text: "밥먹기",
+    },
+    {
+      id: 2,
+      text: "잠자기",
+    },
+    {
+      id: 3,
+      text: "고기 먹기",
+    },
+  ]);
+  const [editToggle, setEditToggle] = useState(false);
+  const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [imgFile, setImgFile] = useState("");
+
+  const nextId = useRef(4);
   const imgRef = useRef<HTMLInputElement>();
+
+  const onWriteMaterial = useCallback(
+    (text: string) => {
+      const material = {
+        id: nextId.current,
+        text,
+      };
+      setMaterials(materials.concat(material));
+      nextId.current += 1;
+    },
+    [materials]
+  );
+
+  const onRemoveMaterial = useCallback(
+    (id: number) => {
+      setMaterials(materials.filter((material) => material.id !== id));
+    },
+    [materials]
+  );
 
   const handlePreviewImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file: any = e.target.files;
@@ -86,15 +125,10 @@ const Write = () => {
             <S.PropsContainer>
               <S.MaterialTemplate>
                 <S.PropsTitle>재료</S.PropsTitle>
-                <S.WriteRecipeTitle
-                  placeholder="예) 돼지고기 500g / 소금 3큰술"
-                  style={{ borderRadius: "5px 0 0 5px" }}
-                />
+                <MaterialInput onWriteMaterial={onWriteMaterial} />
                 <S.MaterialAddButton>추가</S.MaterialAddButton>
-                <S.MaterialList>
-                  <S.MaterialItem />
-                </S.MaterialList>
-                <S.MaterialEdit />
+                <MaterialList materials={materials} onRemoveMaterial={onRemoveMaterial} />
+                {editToggle && <MaterialEdit />}
               </S.MaterialTemplate>
             </S.PropsContainer>
           </S.RecipeFormContainer>

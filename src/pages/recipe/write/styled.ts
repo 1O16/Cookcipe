@@ -137,9 +137,3 @@ export const MaterialAddButton = styled.button`
     background-color: #fac37c;
   }
 `;
-
-export const MaterialList = styled.ul``;
-
-export const MaterialItem = styled.li``;
-
-export const MaterialEdit = styled.div``;
