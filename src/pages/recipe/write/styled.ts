@@ -74,6 +74,8 @@ export const CategorySelector = styled.select`
   border-radius: 5px;
   font-size: 16px;
   text-align: center;
+
+  cursor: pointer;
 `;
 
 export const RecipeImage = styled.input`
@@ -119,9 +121,15 @@ export const ImageDeleteBtn = styled.button`
   }
 `;
 
+export const FlexDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const MaterialTemplate = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   wideth: 100%;
 `;

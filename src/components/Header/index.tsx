@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { authService } from "../../services/fbase";
 
+import { MdAccountCircle, MdLogout, MdModeEditOutline } from "react-icons/md";
 import * as S from "./styled";
 
 const Header = () => {
@@ -54,14 +55,16 @@ const Header = () => {
               style={{ marginLeft: "6rem", backgroundColor: "#F8AA45" }}
             >
               <S.RecipeTooltip>
-                <S.TooltipText>로그아웃</S.TooltipText>L
+                <S.TooltipText>로그아웃</S.TooltipText>
+                <MdLogout size="20" />
               </S.RecipeTooltip>
             </S.WriteRecipeButton>
           ) : (
             <Link href="/auth/login">
               <S.WriteRecipeButton style={{ marginLeft: "6rem", backgroundColor: "#F8AA45" }}>
                 <S.RecipeTooltip>
-                  <S.TooltipText>계정</S.TooltipText>A
+                  <S.TooltipText>계정</S.TooltipText>
+                  <MdAccountCircle size="20" />
                 </S.RecipeTooltip>
               </S.WriteRecipeButton>
             </Link>
@@ -71,7 +74,8 @@ const Header = () => {
             style={{ backgroundColor: "#161B21", color: "white" }}
           >
             <S.RecipeTooltip>
-              <S.TooltipText>글 작성</S.TooltipText>R
+              <S.TooltipText>글 작성</S.TooltipText>
+              <MdModeEditOutline size="20" />
             </S.RecipeTooltip>
           </S.WriteRecipeButton>
         </S.SearchContainer>

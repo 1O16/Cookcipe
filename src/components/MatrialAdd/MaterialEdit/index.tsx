@@ -33,12 +33,14 @@ const MaterialEdit = ({ selectedMaterial, onUpdateMaterial }: MaterialEditProps)
     <S.MaterialEdit>
       <S.MaterialEditForm onSubmit={onSubmit}>
         <S.MaterialEditTitle>수정하기</S.MaterialEditTitle>
-        <S.MaterialEditInput
-          value={value}
-          onChange={onChange}
-          placeholder="재료를 입력해주세요. 예) 돼지고기 500g / 소금 3큰술"
-        />
-        <S.MaterialEditButton type="submit">수정</S.MaterialEditButton>
+        <S.FlexDiv>
+          <S.MaterialEditInput
+            value={value}
+            onChange={onChange}
+            placeholder="재료를 입력해주세요. 예) 돼지고기 500g / 소금 3큰술"
+          />
+          <S.MaterialEditButton type="submit">수정</S.MaterialEditButton>
+        </S.FlexDiv>
       </S.MaterialEditForm>
     </S.MaterialEdit>
   );

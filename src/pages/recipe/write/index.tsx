@@ -134,10 +134,13 @@ const Write = () => {
           >
             <S.PropsContainer>
               <S.MaterialTemplate>
-                <S.PropsTitle>재료</S.PropsTitle>
-                <MaterialInput onWriteMaterial={onWriteMaterial} />
+                <S.FlexDiv>
+                  <S.PropsTitle>재료</S.PropsTitle>
+                  <MaterialInput onWriteMaterial={onWriteMaterial} />
+                </S.FlexDiv>
                 <MaterialList
                   materials={materials}
+                  editToggle={editToggle}
                   onEditToggle={onEditToggle}
                   onRemoveMaterial={onRemoveMaterial}
                   onChangeSelectedMaterial={onChangeSelectedMaterial}

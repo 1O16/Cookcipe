@@ -8,7 +8,7 @@ export const MaterialForm = styled.form`
 export const MaterialInput = styled.input`
   width: 450px;
   height: 30px;
-  padding: 10px 10px 6px 15px;
+  padding: 10px 10px 10px 15px;
   border-radius: 5px 0 0 5px;
   border: 1px solid #848484;
   background-color: #f2f2f2;
@@ -21,7 +21,16 @@ export const MaterialInput = styled.input`
 
 export const MaterialAddButton = styled.button`
   width: 60px;
-  height: 47px;
+  height: 52px;
+  font-size: 16px;
+  font-weight: 600;
   border-radius: 0 5px 5px 0;
   border: 1px solid #848484;
+  background-color: #f8aa45;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c68837;
+  }
 `;

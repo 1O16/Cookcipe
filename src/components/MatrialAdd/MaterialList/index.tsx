@@ -5,6 +5,7 @@ import * as S from "./styled";
 
 interface MaterialListProps {
   materials: any;
+  editToggle: boolean;
   onRemoveMaterial: (id: number) => void;
   onChangeSelectedMaterial: (material: any) => void;
   onEditToggle: () => void;
@@ -12,6 +13,7 @@ interface MaterialListProps {
 
 const MaterialList = ({
   materials,
+  editToggle,
   onRemoveMaterial,
   onChangeSelectedMaterial,
   onEditToggle,
@@ -21,6 +23,7 @@ const MaterialList = ({
       <MaterialItem
         material={material}
         key={material.id}
+        editToggle={editToggle}
         onEditToggle={onEditToggle}
         onRemoveMaterial={onRemoveMaterial}
         onChangeSelectedMaterial={onChangeSelectedMaterial}
