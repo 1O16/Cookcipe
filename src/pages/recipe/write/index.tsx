@@ -1,6 +1,7 @@
 import react from "next";
 import { useCallback, useRef, useState } from "react";
-import { Layout } from "../../../components";
+import ReactQuill from "react-quill";
+import { Layout, Quill } from "../../../components";
 import MaterialEdit from "../../../components/MatrialAdd/MaterialEdit";
 import MaterialInput from "../../../components/MatrialAdd/MaterialInput";
 import MaterialList from "../../../components/MatrialAdd/MaterialList";
@@ -18,8 +19,10 @@ const Write = () => {
   const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [editToggle, setEditToggle] = useState(false);
   const [imgFile, setImgFile] = useState("");
+  const [recipeContent, setRecipeContent] = useState("");
 
-  const nextId = useRef(4);
+  const quillRef = useRef<ReactQuill>(null);
+  const nextId = useRef(1);
   const imgRef = useRef<HTMLInputElement>();
 
   const onWriteMaterial = useCallback(
@@ -152,6 +155,22 @@ const Write = () => {
                   />
                 )}
               </S.MaterialTemplate>
+            </S.PropsContainer>
+          </S.RecipeFormContainer>
+          <S.RecipeFormContainer
+            style={{ borderTop: "1px solid #848484", marginTop: "40px", paddingTop: "30px" }}
+          >
+            <S.PropsContainer>
+              <S.PropsTitle style={{ fontWeight: "bold", fontSize: "24px" }}>레시피</S.PropsTitle>
+              <Quill
+                quillRef={quillRef}
+                recipeContent={recipeContent}
+                setRecipeContent={setRecipeContent}
+              />
+              {/* <S.WriteRecipeDesc
+                style={{ width: "100%", height: "800px", resize: "none" }}
+                placeholder="레시피를 입력해주세요"
+              ></S.WriteRecipeDesc> */}
             </S.PropsContainer>
           </S.RecipeFormContainer>
         </S.WriteBody>
