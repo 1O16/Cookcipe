@@ -11,7 +11,7 @@ interface MaterialInputProps {
 
 const MaterialInput = ({ materials, onWriteMaterial, ...props }: MaterialInputProps) => {
   const [value, setValue] = useState("");
-
+  3;
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };

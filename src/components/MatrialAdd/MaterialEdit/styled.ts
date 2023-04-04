@@ -4,7 +4,7 @@ export const MaterialEdit = styled.div``;
 
 export const MaterialEditForm = styled.form``;
 
-export const MaterialEditTitle = styled.h2``;
+export const MaterialEditTitle = styled.h3``;
 
 export const MaterialEditInput = styled.input``;
 

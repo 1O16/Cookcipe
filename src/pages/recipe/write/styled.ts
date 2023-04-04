@@ -119,21 +119,9 @@ export const ImageDeleteBtn = styled.button`
   }
 `;
 
-export const MaterialTemplate = styled.div``;
-
-export const MaterialAddButton = styled.button`
-  width: 70px;
-  height: 53px;
-  background-color: #f8aa45;
-  border-radius: 0 5px 5px 0;
-  border: 1px solid #848484;
-
-  font-size: 16px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  &:hover {
-    background-color: #fac37c;
-  }
+export const MaterialTemplate = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  wideth: 100%;
 `;
