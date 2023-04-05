@@ -9,7 +9,7 @@ import * as S from "./styled";
 interface QuillProps {
   recipeContent: string;
   setRecipeContent: (recipeContent: string) => void;
-  quillRef: React.MutableRefObject<ReactQuill | null>;
+  quillRef: React.MutableRefObject<ReactQuill | string>;
 }
 
 export const Quill = memo(({ quillRef, recipeContent, setRecipeContent }: QuillProps) => {
@@ -37,7 +37,11 @@ export const Quill = memo(({ quillRef, recipeContent, setRecipeContent }: QuillP
   return (
     <S.QuillElement>
       <ReactQuill
-        ref={quillRef}
+        ref={(element: string | ReactQuill) => {
+          if (element !== null) {
+            quillRef.current = element;
+          }
+        }}
         value={recipeContent}
         onChange={() => setRecipeContent}
         modules={modules}

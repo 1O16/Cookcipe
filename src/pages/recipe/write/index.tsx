@@ -1,4 +1,6 @@
+import { addDoc, collection } from "firebase/firestore";
 import react from "next";
+import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import { Layout, Quill } from "../../../components";
@@ -15,6 +17,10 @@ interface MaterialProps {
 }
 
 const Write = () => {
+  const [title, setTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [category, setCategory] = useState("");
+  const [difficulty, setDifficulty] = useState("");
   const [materials, setMaterials] = useState<MaterialProps[]>([]);
   const [selectedMaterial, setSelectedMaterial] = useState(null);
   const [editToggle, setEditToggle] = useState(false);
@@ -24,6 +30,22 @@ const Write = () => {
   const quillRef = useRef<ReactQuill>(null);
   const nextId = useRef(1);
   const imgRef = useRef<HTMLInputElement>();
+
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const onChangeDesc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDesc(e.target.value);
+  };
+
+  const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
+  };
+
+  const onChangeDifficulty = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDifficulty(e.target.value);
+  };
 
   const onWriteMaterial = useCallback(
     (text: string) => {
@@ -78,6 +100,18 @@ const Write = () => {
   const onClickImgDel = () => {
     setImgFile("");
   };
+
+  const onClickAddDoc = () => {
+    addDoc(collection(db, "recipe"), {
+      title: title,
+      desc: desc,
+      prevImg: imgFile,
+      materials: materials,
+      content: recipeContent,
+      category: category,
+      difficulty: difficulty,
+    });
+  };
   return (
     <>
       <Layout>
@@ -87,18 +121,24 @@ const Write = () => {
             <S.RecipeFormContainer>
               <S.PropsContainer>
                 <S.PropsTitle>레시피명</S.PropsTitle>
-                <S.WriteRecipeTitle placeholder="레시피명을 입력해주세요" />
+                <S.WriteRecipeTitle
+                  value={title}
+                  onChange={onChangeTitle}
+                  placeholder="레시피명을 입력해주세요"
+                />
               </S.PropsContainer>
               <S.PropsContainer>
                 <S.PropsTitle>레시피 소개</S.PropsTitle>
                 <S.WriteRecipeDesc
                   style={{ resize: "none" }}
+                  value={desc}
+                  onChange={onChangeDesc}
                   placeholder="레시피 소개를 입력해주세요"
                 ></S.WriteRecipeDesc>
               </S.PropsContainer>
               <S.PropsContainer>
                 <S.PropsTitle>카테고리</S.PropsTitle>
-                <S.CategorySelector>
+                <S.CategorySelector value={category} onChange={onChangeCategory}>
                   <option value="KoreanFood">한식</option>
                   <option value="JapaneseFood">일식</option>
                   <option value="ChineseFood">중식</option>
@@ -108,7 +148,7 @@ const Write = () => {
                   <option value="Salad">샐러드</option>
                 </S.CategorySelector>
                 <S.PropsTitle style={{ marginLeft: "35px" }}>난이도</S.PropsTitle>
-                <S.CategorySelector>
+                <S.CategorySelector value={difficulty} onChange={onChangeDifficulty}>
                   <option value="Hard">상</option>
                   <option value="Normal">중</option>
                   <option value="Easy">하</option>
@@ -125,7 +165,7 @@ const Write = () => {
                 <></>
               )}
               <pre
-                style={{ fontWeight: "600", position: "absolute", marginTop: "20px", zIndex: "2" }}
+                style={{ fontWeight: "600", position: "absolute", marginTop: "20px", zIndex: "1" }}
               >
                 완성된 요리 사진을 <br />
                 업로드해주세요!
@@ -174,6 +214,13 @@ const Write = () => {
                 setRecipeContent={setRecipeContent}
               />
             </S.PropsContainer>
+          </S.RecipeFormContainer>
+          <S.RecipeFormContainer>
+            <Link href="/">
+              <S.PropsContainer>
+                <S.RecipeSubmitButton onClick={onClickAddDoc}>올리기</S.RecipeSubmitButton>
+              </S.PropsContainer>
+            </Link>
           </S.RecipeFormContainer>
         </S.WriteBody>
       </Layout>

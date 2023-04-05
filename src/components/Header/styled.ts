@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
   border-bottom: 1px solid #e5e5e5;
   background-color: white;
 
-  z-index: 999;
+  z-index: 10;
 `;
 
 export const Logo = styled.img`
@@ -85,7 +85,7 @@ export const CategoryContainer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 10;
   margin-top: 120px;
   background-color: #f8aa45;
 `;

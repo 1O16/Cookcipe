@@ -97,7 +97,7 @@ export const RecipeImage = styled.input`
 
 export const PreviewImage = styled.img`
   position: absolute;
-  z-index: 3;
+  z-index: 2;
   width: 200px;
   height: 200px;
   border: 1px solid #e6e6e6;
@@ -134,4 +134,23 @@ export const MaterialTemplate = styled.div`
   justify-content: center;
   flex-direction: column;
   wideth: 100%;
+`;
+
+export const RecipeSubmitButton = styled.button`
+  position: absolute;
+
+  width: 220px;
+  height: 50px;
+  background-color: #f8aa45;
+  font-size: 18px;
+  font-weight: 600;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin-top: 250px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ec971f;
+  }
 `;
