@@ -124,6 +124,12 @@ const Write = () => {
               ) : (
                 <></>
               )}
+              <pre
+                style={{ fontWeight: "600", position: "absolute", marginTop: "20px", zIndex: "2" }}
+              >
+                완성된 요리 사진을 <br />
+                업로드해주세요!
+              </pre>
               <S.RecipeImage
                 type="file"
                 accept=".png, .jpg, .jpeg"
@@ -167,10 +173,6 @@ const Write = () => {
                 recipeContent={recipeContent}
                 setRecipeContent={setRecipeContent}
               />
-              {/* <S.WriteRecipeDesc
-                style={{ width: "100%", height: "800px", resize: "none" }}
-                placeholder="레시피를 입력해주세요"
-              ></S.WriteRecipeDesc> */}
             </S.PropsContainer>
           </S.RecipeFormContainer>
         </S.WriteBody>

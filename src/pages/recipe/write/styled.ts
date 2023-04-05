@@ -84,6 +84,7 @@ export const RecipeImage = styled.input`
   background-color: #e6e6e6;
   border: 1px solid #e6e6e6;
   border-radius: 5px;
+  z-index: 1;
   cursor: pointer;
 
   &::file-selector-button {
@@ -96,6 +97,7 @@ export const RecipeImage = styled.input`
 
 export const PreviewImage = styled.img`
   position: absolute;
+  z-index: 3;
   width: 200px;
   height: 200px;
   border: 1px solid #e6e6e6;
@@ -114,7 +116,7 @@ export const ImageDeleteBtn = styled.button`
   background-color: black;
   opacity: 65%;
   cursor: pointer;
-  z-index: 1;
+  z-index: 4;
 
   &:hover {
     opacity: 100%;
