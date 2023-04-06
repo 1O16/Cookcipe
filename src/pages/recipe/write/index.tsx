@@ -1,8 +1,6 @@
 import { addDoc, collection } from "firebase/firestore";
-import react from "next";
 import Link from "next/link";
-import { useCallback, useRef, useState } from "react";
-import ReactQuill from "react-quill";
+import React, { useCallback, useRef, useState } from "react";
 import { Layout, Quill } from "../../../components";
 import MaterialEdit from "../../../components/MatrialAdd/MaterialEdit";
 import MaterialInput from "../../../components/MatrialAdd/MaterialInput";
@@ -17,35 +15,18 @@ interface MaterialProps {
 }
 
 const Write = () => {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [category, setCategory] = useState("");
-  const [difficulty, setDifficulty] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [desc, setDesc] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
+  const [difficulty, setDifficulty] = useState<string>("");
   const [materials, setMaterials] = useState<MaterialProps[]>([]);
-  const [selectedMaterial, setSelectedMaterial] = useState(null);
-  const [editToggle, setEditToggle] = useState(false);
-  const [imgFile, setImgFile] = useState("");
-  const [recipeContent, setRecipeContent] = useState("");
+  const [selectedMaterial, setSelectedMaterial] = useState<boolean | null>(null);
+  const [editToggle, setEditToggle] = useState<boolean>(false);
+  const [imgFile, setImgFile] = useState<string>("");
+  const [recipeContent, setRecipeContent] = useState<string>("");
 
-  const quillRef = useRef<ReactQuill>(null);
   const nextId = useRef(1);
-  const imgRef = useRef<HTMLInputElement>();
-
-  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
-
-  const onChangeDesc = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDesc(e.target.value);
-  };
-
-  const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value);
-  };
-
-  const onChangeDifficulty = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setDifficulty(e.target.value);
-  };
+  const imgRef = useRef<HTMLInputElement>(null);
 
   const onWriteMaterial = useCallback(
     (text: string) => {
@@ -112,119 +93,128 @@ const Write = () => {
       difficulty: difficulty,
     });
   };
+
   return (
-    <>
-      <Layout>
-        <S.WriteHeader>레시피 작성</S.WriteHeader>
-        <S.WriteBody>
-          <S.ForImageContainer>
-            <S.RecipeFormContainer>
-              <S.PropsContainer>
-                <S.PropsTitle>레시피명</S.PropsTitle>
-                <S.WriteRecipeTitle
-                  value={title}
-                  onChange={onChangeTitle}
-                  placeholder="레시피명을 입력해주세요"
-                />
-              </S.PropsContainer>
-              <S.PropsContainer>
-                <S.PropsTitle>레시피 소개</S.PropsTitle>
-                <S.WriteRecipeDesc
-                  style={{ resize: "none" }}
-                  value={desc}
-                  onChange={onChangeDesc}
-                  placeholder="레시피 소개를 입력해주세요"
-                ></S.WriteRecipeDesc>
-              </S.PropsContainer>
-              <S.PropsContainer>
-                <S.PropsTitle>카테고리</S.PropsTitle>
-                <S.CategorySelector value={category} onChange={onChangeCategory}>
-                  <option value="KoreanFood">한식</option>
-                  <option value="JapaneseFood">일식</option>
-                  <option value="ChineseFood">중식</option>
-                  <option value="WesternFood">양식</option>
-                  <option value="Simple">자취음식</option>
-                  <option value="Desert">디저트</option>
-                  <option value="Salad">샐러드</option>
-                </S.CategorySelector>
-                <S.PropsTitle style={{ marginLeft: "35px" }}>난이도</S.PropsTitle>
-                <S.CategorySelector value={difficulty} onChange={onChangeDifficulty}>
-                  <option value="Hard">상</option>
-                  <option value="Normal">중</option>
-                  <option value="Easy">하</option>
-                </S.CategorySelector>
-              </S.PropsContainer>
-            </S.RecipeFormContainer>
-            <div>
-              {imgFile ? (
-                <>
-                  <S.PreviewImage src={imgFile} />
-                  <S.ImageDeleteBtn onClick={onClickImgDel}>X</S.ImageDeleteBtn>
-                </>
-              ) : (
-                <></>
-              )}
-              <pre
-                style={{ fontWeight: "600", position: "absolute", marginTop: "20px", zIndex: "1" }}
-              >
-                완성된 요리 사진을 <br />
-                업로드해주세요!
-              </pre>
-              <S.RecipeImage
-                type="file"
-                accept=".png, .jpg, .jpeg"
-                onChange={handlePreviewImg}
-                ref={imgRef}
-              />
-            </div>
-          </S.ForImageContainer>
-          <S.RecipeFormContainer
-            style={{ borderTop: "1px solid #848484", marginTop: "40px", paddingTop: "30px" }}
-          >
-            <S.PropsContainer>
-              <S.MaterialTemplate>
-                <S.FlexDiv>
-                  <S.PropsTitle>재료</S.PropsTitle>
-                  <MaterialInput onWriteMaterial={onWriteMaterial} />
-                </S.FlexDiv>
-                <MaterialList
-                  materials={materials}
-                  editToggle={editToggle}
-                  onEditToggle={onEditToggle}
-                  onRemoveMaterial={onRemoveMaterial}
-                  onChangeSelectedMaterial={onChangeSelectedMaterial}
-                />
-                {editToggle && (
-                  <MaterialEdit
-                    selectedMaterial={selectedMaterial}
-                    onUpdateMaterial={onUpdateMaterial}
-                  />
-                )}
-              </S.MaterialTemplate>
-            </S.PropsContainer>
-          </S.RecipeFormContainer>
-          <S.RecipeFormContainer
-            style={{ borderTop: "1px solid #848484", marginTop: "40px", paddingTop: "30px" }}
-          >
-            <S.PropsContainer>
-              <S.PropsTitle style={{ fontWeight: "bold", fontSize: "24px" }}>레시피</S.PropsTitle>
-              <Quill
-                quillRef={quillRef}
-                recipeContent={recipeContent}
-                setRecipeContent={setRecipeContent}
-              />
-            </S.PropsContainer>
-          </S.RecipeFormContainer>
+    <Layout>
+      <S.WriteHeader>레시피 작성</S.WriteHeader>
+      <S.WriteBody>
+        <S.ForImageContainer>
           <S.RecipeFormContainer>
-            <Link href="/">
-              <S.PropsContainer>
-                <S.RecipeSubmitButton onClick={onClickAddDoc}>올리기</S.RecipeSubmitButton>
-              </S.PropsContainer>
-            </Link>
+            <S.PropsContainer>
+              <S.PropsTitle>레시피명</S.PropsTitle>
+              <S.WriteRecipeTitle
+                value={title}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setTitle(e.target.value);
+                }}
+                placeholder="레시피명을 입력해주세요"
+              />
+            </S.PropsContainer>
+            <S.PropsContainer>
+              <S.PropsTitle>레시피 소개</S.PropsTitle>
+              <S.WriteRecipeDesc
+                style={{ resize: "none" }}
+                value={desc}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  setDesc(e.target.value);
+                }}
+                placeholder="레시피 소개를 입력해주세요"
+              ></S.WriteRecipeDesc>
+            </S.PropsContainer>
+            <S.PropsContainer>
+              <S.PropsTitle>카테고리</S.PropsTitle>
+              <S.CategorySelector
+                value={category}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  setCategory(e.target.value);
+                }}
+              >
+                <option value="KoreanFood">한식</option>
+                <option value="JapaneseFood">일식</option>
+                <option value="ChineseFood">중식</option>
+                <option value="WesternFood">양식</option>
+                <option value="Simple">자취음식</option>
+                <option value="Desert">디저트</option>
+                <option value="Salad">샐러드</option>
+              </S.CategorySelector>
+              <S.PropsTitle style={{ marginLeft: "35px" }}>난이도</S.PropsTitle>
+              <S.CategorySelector
+                value={difficulty}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  setDifficulty(e.target.value);
+                }}
+              >
+                <option value="Hard">상</option>
+                <option value="Normal">중</option>
+                <option value="Easy">하</option>
+              </S.CategorySelector>
+            </S.PropsContainer>
           </S.RecipeFormContainer>
-        </S.WriteBody>
-      </Layout>
-    </>
+          <div>
+            {imgFile ? (
+              <>
+                <S.PreviewImage src={imgFile} />
+                <S.ImageDeleteBtn onClick={onClickImgDel}>X</S.ImageDeleteBtn>
+              </>
+            ) : (
+              <></>
+            )}
+            <pre
+              style={{ fontWeight: "600", position: "absolute", marginTop: "20px", zIndex: "1" }}
+            >
+              완성된 요리 사진을 <br />
+              업로드해주세요!
+            </pre>
+            <S.RecipeImage
+              type="file"
+              accept=".png, .jpg, .jpeg"
+              onChange={handlePreviewImg}
+              ref={imgRef}
+            />
+          </div>
+        </S.ForImageContainer>
+        <S.RecipeFormContainer
+          style={{ borderTop: "1px solid #848484", marginTop: "40px", paddingTop: "30px" }}
+        >
+          <S.PropsContainer>
+            <S.MaterialTemplate>
+              <S.FlexDiv>
+                <S.PropsTitle>재료</S.PropsTitle>
+                <MaterialInput onWriteMaterial={onWriteMaterial} />
+              </S.FlexDiv>
+              <MaterialList
+                materials={materials}
+                editToggle={editToggle}
+                onEditToggle={onEditToggle}
+                onRemoveMaterial={onRemoveMaterial}
+                onChangeSelectedMaterial={onChangeSelectedMaterial}
+              />
+              {editToggle && (
+                <MaterialEdit
+                  selectedMaterial={selectedMaterial}
+                  onUpdateMaterial={onUpdateMaterial}
+                />
+              )}
+            </S.MaterialTemplate>
+          </S.PropsContainer>
+        </S.RecipeFormContainer>
+        <S.RecipeFormContainer
+          style={{ borderTop: "1px solid #848484", marginTop: "40px", paddingTop: "30px" }}
+        >
+          <S.PropsContainer>
+            <S.PropsTitle style={{ fontWeight: "bold", fontSize: "24px" }}>레시피</S.PropsTitle>
+            <Quill recipeContent={recipeContent} setRecipeContent={setRecipeContent} />
+          </S.PropsContainer>
+        </S.RecipeFormContainer>
+        <S.RecipeFormContainer>
+          <Link href="/">
+            <S.PropsContainer>
+              <S.RecipeSubmitButton onClick={onClickAddDoc}>올리기</S.RecipeSubmitButton>
+            </S.PropsContainer>
+          </Link>
+        </S.RecipeFormContainer>
+      </S.WriteBody>
+    </Layout>
   );
 };
 

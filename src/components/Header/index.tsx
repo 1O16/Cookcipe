@@ -81,7 +81,6 @@ const Header = () => {
         </S.SearchContainer>
       </S.HeaderContainer>
       <S.CategoryContainer>
-        <S.Category href="/recipe/entire">전체</S.Category>
         <S.Category href="/recipe/ranking">랭킹</S.Category>
         <S.Category href="/recipe/category">분류</S.Category>
         <S.Category href="/recipe/review">후기</S.Category>
