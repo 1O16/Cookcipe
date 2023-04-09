@@ -81,29 +81,11 @@ export const CategoryContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 40px;
+  height: 20px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
   margin-top: 120px;
   background-color: #f8aa45;
-`;
-
-export const Category = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  cursor: pointer;
-  width: 13%;
-  height: 100%;
-  text-align: center;
-  font-weight: bold;
-  text-decoration: none;
-
-  &&:hover {
-    background-color: #c68837;
-    transition: 0.3s;
-  }
 `;

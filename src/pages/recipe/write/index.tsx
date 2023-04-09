@@ -1,11 +1,13 @@
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { getDownloadURL, listAll, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import Link from "next/link";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import ReactQuill from "react-quill";
 import { Layout, Quill } from "../../../components";
 import MaterialEdit from "../../../components/MatrialAdd/MaterialEdit";
 import MaterialInput from "../../../components/MatrialAdd/MaterialInput";
 import MaterialList from "../../../components/MatrialAdd/MaterialList";
-import { db } from "../../../services/fbase";
+import { db, storage } from "../../../services/fbase";
 
 import * as S from "./styled";
 
@@ -22,11 +24,12 @@ const Write = () => {
   const [materials, setMaterials] = useState<MaterialProps[]>([]);
   const [selectedMaterial, setSelectedMaterial] = useState<boolean | null>(null);
   const [editToggle, setEditToggle] = useState<boolean>(false);
-  const [imgFile, setImgFile] = useState<string>("");
-  const [recipeContent, setRecipeContent] = useState<string>("");
+  const [recipeContent, setRecipeContent] = useState("");
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageList, setImageList] = useState([]);
 
-  const nextId = useRef(1);
-  const imgRef = useRef<HTMLInputElement>(null);
+  const quillRef = useRef<ReactQuill>(null);
+  const nextId = useRef<number>(1);
 
   const onWriteMaterial = useCallback(
     (text: string) => {
@@ -65,34 +68,45 @@ const Write = () => {
     );
   };
 
-  const handlePreviewImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file: any = e.target.files;
-    if (file.length === 0) {
-      return;
-    } else {
-      const reader = new FileReader();
-      reader.readAsDataURL(file[0]);
-      reader.onload = function (e: any) {
-        setImgFile(e.target.result);
-      };
-    }
-  };
-
-  const onClickImgDel = () => {
-    setImgFile("");
-  };
-
   const onClickAddDoc = () => {
     addDoc(collection(db, "recipe"), {
       title: title,
       desc: desc,
-      prevImg: imgFile,
+      img: imageList,
       materials: materials,
       content: recipeContent,
       category: category,
       difficulty: difficulty,
+      createdAt: serverTimestamp(),
     });
   };
+
+  const imageListRef = ref(storage, "images/");
+
+  const onClickImgDel = () => {
+    setImageList([]);
+  };
+
+  const uploadImage = () => {
+    if (imageUpload === null) return;
+
+    const imageRef = ref(storage, `images/${imageUpload.name}`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageList((prev) => [...prev, url]);
+      });
+    });
+  };
+
+  useEffect(() => {
+    listAll(imageListRef).then((res) => {
+      res.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
 
   return (
     <Layout>
@@ -129,6 +143,7 @@ const Write = () => {
                   setCategory(e.target.value);
                 }}
               >
+                <option>카테고리</option>
                 <option value="KoreanFood">한식</option>
                 <option value="JapaneseFood">일식</option>
                 <option value="ChineseFood">중식</option>
@@ -144,6 +159,7 @@ const Write = () => {
                   setDifficulty(e.target.value);
                 }}
               >
+                <option>난이도</option>
                 <option value="Hard">상</option>
                 <option value="Normal">중</option>
                 <option value="Easy">하</option>
@@ -151,9 +167,11 @@ const Write = () => {
             </S.PropsContainer>
           </S.RecipeFormContainer>
           <div>
-            {imgFile ? (
+            {imageList ? (
               <>
-                <S.PreviewImage src={imgFile} />
+                {imageList.map((el) => {
+                  return <S.PreviewImage src={el} key={el} />;
+                })}
                 <S.ImageDeleteBtn onClick={onClickImgDel}>X</S.ImageDeleteBtn>
               </>
             ) : (
@@ -165,12 +183,17 @@ const Write = () => {
               완성된 요리 사진을 <br />
               업로드해주세요!
             </pre>
+            {imageList.map((el) => {
+              return <S.PreviewImage src={el} key={el} />;
+            })}
             <S.RecipeImage
               type="file"
               accept=".png, .jpg, .jpeg"
-              onChange={handlePreviewImg}
-              ref={imgRef}
+              onChange={(e) => {
+                setImageUpload(e.target.files[0]);
+              }}
             />
+            <button onClick={uploadImage}>이미지 업로드</button>
           </div>
         </S.ForImageContainer>
         <S.RecipeFormContainer
@@ -203,7 +226,11 @@ const Write = () => {
         >
           <S.PropsContainer>
             <S.PropsTitle style={{ fontWeight: "bold", fontSize: "24px" }}>레시피</S.PropsTitle>
-            <Quill recipeContent={recipeContent} setRecipeContent={setRecipeContent} />
+            <Quill
+              quillRef={quillRef}
+              recipeContent={recipeContent}
+              setRecipeContent={setRecipeContent}
+            />
           </S.PropsContainer>
         </S.RecipeFormContainer>
         <S.RecipeFormContainer>

@@ -106,6 +106,7 @@ export const PreviewImage = styled.img`
 
 export const ImageDeleteBtn = styled.button`
   position: absolute;
+  margin-left: 170px;
   display: flex;
   align-items: center;
   justify-content: center;

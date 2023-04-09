@@ -4,14 +4,16 @@ import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 
 import * as S from "./styled";
+import ReactQuill from "react-quill";
 
 interface QuillProps {
   recipeContent: string;
   setRecipeContent: (recipeContent: string) => void;
+  quillRef: React.RefObject<ReactQuill>;
   // forwardRef: React.LegacyRef<ReactQuill>;
 }
 
-export const Quill = memo(({ recipeContent, setRecipeContent }: QuillProps) => {
+export const Quill = ({ quillRef, recipeContent, setRecipeContent }: QuillProps) => {
   const ReactQuill = dynamic(() => import("react-quill"), {
     ssr: false,
     loading: () => <p>Loading...</p>,
@@ -36,6 +38,7 @@ export const Quill = memo(({ recipeContent, setRecipeContent }: QuillProps) => {
   return (
     <S.QuillElement>
       <ReactQuill
+        // ref={quillRef}
         value={recipeContent}
         onChange={(v: string) => setRecipeContent(v)}
         modules={modules}
@@ -44,4 +47,4 @@ export const Quill = memo(({ recipeContent, setRecipeContent }: QuillProps) => {
       />
     </S.QuillElement>
   );
-});
+};
