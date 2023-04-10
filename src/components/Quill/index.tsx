@@ -1,5 +1,5 @@
 import React from "react";
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 
@@ -13,7 +13,7 @@ interface QuillProps {
   // forwardRef: React.LegacyRef<ReactQuill>;
 }
 
-export const Quill = ({ quillRef, recipeContent, setRecipeContent }: QuillProps) => {
+export const Quill = ({ recipeContent, setRecipeContent }: QuillProps) => {
   const ReactQuill = dynamic(() => import("react-quill"), {
     ssr: false,
     loading: () => <p>Loading...</p>,

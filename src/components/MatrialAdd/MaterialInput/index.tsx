@@ -1,6 +1,4 @@
-import react from "next";
 import { useCallback, useState } from "react";
-import MaterialItem from "../MaterialItem";
 
 import * as S from "./styled";
 

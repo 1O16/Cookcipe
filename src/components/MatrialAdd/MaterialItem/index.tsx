@@ -1,5 +1,3 @@
-import react from "next";
-
 import { MdModeEditOutline, MdRemoveCircleOutline, MdFiberManualRecord } from "react-icons/md";
 import * as S from "./styled";
 

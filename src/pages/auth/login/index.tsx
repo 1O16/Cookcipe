@@ -1,11 +1,9 @@
-import react from "next";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Input from "../../../components/Input";
 
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,

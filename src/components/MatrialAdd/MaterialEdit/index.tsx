@@ -1,4 +1,3 @@
-import react from "next";
 import { useCallback, useEffect, useState } from "react";
 
 import * as S from "./styled";

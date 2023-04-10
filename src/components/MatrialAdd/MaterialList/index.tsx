@@ -1,4 +1,3 @@
-import react from "next";
 import MaterialItem from "../MaterialItem";
 
 import * as S from "./styled";
