@@ -7,7 +7,7 @@ export const RecipePreviewContainer = styled.div`
   align-items: center;
 `;
 
-export const RandomRecipeTitle = styled.h1``;
+export const RandomRecipeHeader = styled.h1``;
 
 export const RandomRecipeDesc = styled.span`
   font-size: 17px;
@@ -15,14 +15,31 @@ export const RandomRecipeDesc = styled.span`
 `;
 
 export const RandomRecipePreview = styled.div`
-  width: 70%;
-  margin-top: 80px;
-  background-color: skyblue;
+  display: flex;
+  align-items: center;
+  width: 78.5%;
+  margin-top: 60px;
 `;
 
+export const RandomRecipeContainer = styled.div``;
+
 export const RandomRecipePreviewImg = styled.img`
-  width: 425px;
-  height: 425px;
+  width: 455px;
+  height: 455px;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 70%;
+    transition: all 0.3s;
+  }
+`;
+
+export const RandomRecipeTitle = styled.p`
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  margin-top: 10px;
 `;
 
 // export const SlickContainer = styled.div`

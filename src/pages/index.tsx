@@ -1,9 +1,9 @@
 import React, { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { Layout, Slick } from "../components";
+import { Layout } from "../components";
 
 import { db } from "../services/fbase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 import * as S from "./styled";
 
@@ -31,13 +31,35 @@ const HomePage: NextPage = () => {
   return (
     <Layout>
       <S.RecipePreviewContainer>
-        <S.RandomRecipeTitle>오늘의 추천 레시피</S.RandomRecipeTitle>
+        <S.RandomRecipeHeader>오늘의 추천 레시피</S.RandomRecipeHeader>
         <S.RandomRecipeDesc>랜덤으로 레시피가 추천되요.</S.RandomRecipeDesc>
         <S.RandomRecipePreview>
-          <S.RandomRecipePreviewImg src={recipeImg[0]} />
-          <p>{recipeTitle[0]}</p>
-          <S.RandomRecipePreviewImg src={recipeImg[1]} />
-          <p>{recipeTitle[1]}</p>
+          <S.RecipePreviewContainer>
+            <S.RandomRecipePreviewImg src={recipeImg[0]} />
+            <S.RandomRecipeTitle>{recipeTitle[0]}</S.RandomRecipeTitle>
+          </S.RecipePreviewContainer>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <S.RecipePreviewContainer>
+              <S.RandomRecipePreviewImg src={recipeImg[1]} style={{ height: "220px" }} />
+              <S.RandomRecipeTitle>{recipeTitle[1]}</S.RandomRecipeTitle>
+            </S.RecipePreviewContainer>
+            <div style={{ display: "flex", marginTop: "15px" }}>
+              <S.RecipePreviewContainer>
+                <S.RandomRecipePreviewImg
+                  src={recipeImg[2]}
+                  style={{ width: "220px", height: "220px", marginRight: "15px" }}
+                />
+                <S.RandomRecipeTitle>{recipeTitle[2]}</S.RandomRecipeTitle>
+              </S.RecipePreviewContainer>
+              <S.RecipePreviewContainer>
+                <S.RandomRecipePreviewImg
+                  src={recipeImg[3]}
+                  style={{ width: "220px", height: "220px" }}
+                />
+                <S.RandomRecipeTitle>{recipeTitle[3]}</S.RandomRecipeTitle>
+              </S.RecipePreviewContainer>
+            </div>
+          </div>
         </S.RandomRecipePreview>
       </S.RecipePreviewContainer>
     </Layout>
