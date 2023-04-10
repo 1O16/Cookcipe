@@ -1,6 +1,6 @@
 import React, { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { Layout } from "../components";
+import { Layout, CategoryButton } from "../components";
 
 import { db } from "../services/fbase";
 import { collection, getDocs } from "firebase/firestore";
@@ -8,16 +8,44 @@ import { collection, getDocs } from "firebase/firestore";
 import * as S from "./styled";
 
 const HomePage: NextPage = () => {
-  const [recipe, setRecipe] = useState([]);
   const readRecipe = async () => {
     const mySnapshot = await getDocs(collection(db, "recipe"));
     if (mySnapshot.empty) {
       console.log("No matching documents.");
     } else {
       const docData = mySnapshot.docs.map((doc) => doc.data());
-      console.log(`${JSON.stringify(docData)})}`);
       setRecipe(docData);
     }
+  };
+
+  const [recipe, setRecipe] = useState([]);
+  const [filterdItems, setFilterdItems] = useState([readRecipe()]);
+  const [filter, setFilter] = useState([
+    "KoreanFood",
+    "WesternFood",
+    "ChineseFood",
+    "JapaneseFood",
+    "Dessert",
+    "Salad",
+    "Simple",
+  ]);
+
+  const applyFilter = () => {
+    setFilterdItems(recipe.filter((item) => filter.includes(item.category)));
+  };
+
+  const filterItems = (category: string) => {
+    console.log(category, ":", !filter.includes(category));
+    const index = filter.indexOf(category);
+    const items = filter;
+    if (index >= 0) {
+      items.splice(index, 1);
+    } else {
+      items.push(category);
+    }
+    setFilter(items);
+    applyFilter();
+    console.log(filter);
   };
 
   useEffect(() => {
@@ -65,7 +93,9 @@ const HomePage: NextPage = () => {
       <S.CategoryContainer>
         <S.PropsHeader>Cookcipe 레시피</S.PropsHeader>
         <S.PropsDesc>모든 레시피를 손쉽고 빠르게</S.PropsDesc>
-        <S.CategoryButtonContainer>1</S.CategoryButtonContainer>
+        <S.CategoryButtonContainer>
+          <CategoryButton filter={filterItems} filterStatus={filter} />
+        </S.CategoryButtonContainer>
       </S.CategoryContainer>
     </Layout>
   );

@@ -166,7 +166,7 @@ const Write = () => {
                 <option value="ChineseFood">중식</option>
                 <option value="WesternFood">양식</option>
                 <option value="Simple">자취음식</option>
-                <option value="Desert">디저트</option>
+                <option value="Dessert">디저트</option>
                 <option value="Salad">샐러드</option>
               </S.CategorySelector>
               <S.PropsTitle style={{ marginLeft: "35px" }}>난이도</S.PropsTitle>
