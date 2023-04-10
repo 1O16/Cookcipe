@@ -7,9 +7,9 @@ export const RecipePreviewContainer = styled.div`
   align-items: center;
 `;
 
-export const RandomRecipeHeader = styled.h1``;
+export const PropsHeader = styled.h1``;
 
-export const RandomRecipeDesc = styled.span`
+export const PropsDesc = styled.span`
   font-size: 17px;
   color: #fac37c;
 `;
@@ -42,9 +42,17 @@ export const RandomRecipeTitle = styled.p`
   margin-top: 10px;
 `;
 
-// export const SlickContainer = styled.div`
-//   width: 90%;
-//   margin: 0 auto;
-// `;
+export const CategoryContainer = styled.div`
+  margin-top: 250px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-// export const SlickItem = styled.div``;
+export const CategoryButtonContainer = styled.div`
+  margin-top: 60px;
+  display: flex;
+  width: 70%;
+  background-color: skyblue;
+`;

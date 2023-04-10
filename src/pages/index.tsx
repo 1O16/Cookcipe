@@ -31,8 +31,8 @@ const HomePage: NextPage = () => {
   return (
     <Layout>
       <S.RecipePreviewContainer>
-        <S.RandomRecipeHeader>오늘의 추천 레시피</S.RandomRecipeHeader>
-        <S.RandomRecipeDesc>랜덤으로 레시피가 추천되요.</S.RandomRecipeDesc>
+        <S.PropsHeader>오늘의 추천 레시피</S.PropsHeader>
+        <S.PropsDesc>랜덤으로 레시피가 추천되요.</S.PropsDesc>
         <S.RandomRecipePreview>
           <S.RecipePreviewContainer>
             <S.RandomRecipePreviewImg src={recipeImg[0]} />
@@ -62,6 +62,11 @@ const HomePage: NextPage = () => {
           </div>
         </S.RandomRecipePreview>
       </S.RecipePreviewContainer>
+      <S.CategoryContainer>
+        <S.PropsHeader>Cookcipe 레시피</S.PropsHeader>
+        <S.PropsDesc>모든 레시피를 손쉽고 빠르게</S.PropsDesc>
+        <S.CategoryButtonContainer>1</S.CategoryButtonContainer>
+      </S.CategoryContainer>
     </Layout>
   );
 };
