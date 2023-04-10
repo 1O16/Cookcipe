@@ -1,5 +1,12 @@
 import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
-import { getDownloadURL, listAll, ref, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  listAll,
+  ref,
+  uploadBytes,
+  uploadBytesResumable,
+} from "firebase/storage";
 import Link from "next/link";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
@@ -83,10 +90,6 @@ const Write = () => {
 
   const imageListRef = ref(storage, "images/");
 
-  const onClickImgDel = () => {
-    setImageList([]);
-  };
-
   const uploadImage = () => {
     if (imageUpload === null) return;
 
@@ -96,6 +99,20 @@ const Write = () => {
         setImageList((prev) => [...prev, url]);
       });
     });
+  };
+
+  const deleteImage = () => {
+    setImageList([]);
+    if (!imageUpload) return;
+    const deleteRef = ref(storage, `images/${imageUpload.name}`);
+
+    deleteObject(deleteRef)
+      .then(() => {
+        console.log("delete success");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -172,7 +189,7 @@ const Write = () => {
                 {imageList.map((el) => {
                   return <S.PreviewImage src={el} key={el} />;
                 })}
-                <S.ImageDeleteBtn onClick={onClickImgDel}>X</S.ImageDeleteBtn>
+                <S.ImageDeleteBtn onClick={deleteImage}>X</S.ImageDeleteBtn>
               </>
             ) : (
               <></>
