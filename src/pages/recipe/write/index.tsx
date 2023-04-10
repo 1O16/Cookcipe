@@ -29,16 +29,16 @@ const Write = () => {
   const [imageList, setImageList] = useState([]);
 
   const quillRef = useRef<ReactQuill>(null);
-  const nextId = useRef<number>(1);
+  const nextMaterialId = useRef<number>(1);
 
   const onWriteMaterial = useCallback(
     (text: string) => {
       const material = {
-        id: nextId.current,
+        id: nextMaterialId.current,
         text,
       };
       setMaterials(materials.concat(material));
-      nextId.current += 1;
+      nextMaterialId.current += 1;
     },
     [materials]
   );
@@ -116,6 +116,7 @@ const Write = () => {
         });
       });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -180,7 +181,7 @@ const Write = () => {
             {imageList ? (
               <>
                 {imageList.map((el) => {
-                  return <S.PreviewImage src={el} key={el} />;
+                  return <S.PreviewImage src={el} key={el.id} />;
                 })}
                 <S.ImageDeleteBtn onClick={deleteImage}>X</S.ImageDeleteBtn>
               </>
@@ -194,7 +195,7 @@ const Write = () => {
               업로드해주세요!
             </pre>
             {imageList.map((el) => {
-              return <S.PreviewImage src={el} key={el} />;
+              return <S.PreviewImage src={el} key={el.id} />;
             })}
             <S.RecipeImage
               type="file"

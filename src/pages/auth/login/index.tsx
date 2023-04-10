@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Input from "../../../components/Input";
+import { useRouter } from "next/router";
+import Image from "next/image";
 
 import {
   createUserWithEmailAndPassword,
@@ -11,7 +13,6 @@ import {
 import { authService } from "../../../services/fbase";
 
 import * as S from "./styled";
-import { useRouter } from "next/router";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -64,6 +65,7 @@ const Login = () => {
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
+      console.log(isLoggedIn);
       console.log(user);
       if (user) {
         setIsLoggedIn(true);
@@ -97,10 +99,12 @@ const Login = () => {
             <S.Logo src="/img/logo.png" alt="Logo" />
           </Link>
           <S.GoogleLoginButton onClick={onSocialClick} name="google">
-            <img
+            <Image
               src="/img/google.png"
+              width="50"
+              height="50"
               alt="Google Logo"
-              style={{ marginRight: "20px", width: "50px" }}
+              style={{ marginRight: "20px" }}
             />
             {newAccount ? "Google 회원가입" : "Google 로그인"}
           </S.GoogleLoginButton>

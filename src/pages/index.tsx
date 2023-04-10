@@ -45,12 +45,14 @@ const HomePage: NextPage = () => {
     }
     setFilter(items);
     applyFilter();
+    console.log(filterdItems);
     console.log(filter);
   };
 
   useEffect(() => {
     readRecipe();
     console.log(recipe.map((i) => i.title));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const recipeTitle = recipe.map((item) => item.title);
