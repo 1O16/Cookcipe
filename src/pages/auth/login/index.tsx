@@ -65,8 +65,6 @@ const Login = () => {
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      console.log(isLoggedIn);
-      console.log(user);
       if (user) {
         setIsLoggedIn(true);
       } else {

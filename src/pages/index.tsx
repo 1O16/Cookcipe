@@ -19,7 +19,7 @@ const HomePage: NextPage = () => {
   };
 
   const [recipe, setRecipe] = useState([]);
-  const [filterdItems, setFilterdItems] = useState([readRecipe()]);
+  const [filterdItems, setFilterdItems] = useState<any>([readRecipe()]);
   const [filter, setFilter] = useState([
     "KoreanFood",
     "WesternFood",
@@ -35,7 +35,6 @@ const HomePage: NextPage = () => {
   };
 
   const filterItems = (category: string) => {
-    console.log(category, ":", !filter.includes(category));
     const index = filter.indexOf(category);
     const items = filter;
     if (index >= 0) {
@@ -45,13 +44,10 @@ const HomePage: NextPage = () => {
     }
     setFilter(items);
     applyFilter();
-    console.log(filterdItems);
-    console.log(filter);
   };
 
   useEffect(() => {
     readRecipe();
-    console.log(recipe.map((i) => i.title));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -97,9 +93,9 @@ const HomePage: NextPage = () => {
         <S.PropsDesc>모든 레시피를 손쉽고 빠르게</S.PropsDesc>
         <S.CategoryButtonContainer>
           <CategoryButton filter={filterItems} filterStatus={filter} />
-          {filterdItems.map((filteredItem) => (
+          {filterdItems.map((filteredItem: any) => (
             <h2 key={filteredItem.id}>
-              {filteredItem.title} : {filteredItem.category}
+              {filteredItem.title} : {filteredItem.prevImg}
             </h2>
           ))}
         </S.CategoryButtonContainer>
